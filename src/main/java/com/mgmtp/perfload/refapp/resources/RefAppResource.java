@@ -20,10 +20,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.common.base.Strings;
 import com.mgmtp.perfload.refapp.model.AppInfo;
 
 /**
@@ -33,8 +35,8 @@ import com.mgmtp.perfload.refapp.model.AppInfo;
 @Path("rest")
 public class RefAppResource {
 
-	private static final String XMLSTRING = "<element attribute=\"xyz\"/>";
-	private static final String JSONSTRING = "{\"element\":{\"attribute\":\"xyz\"}}";
+	private static final String XMLSTRING = "<element value=\"%d\"/>";
+	private static final String JSONSTRING = "{\"element\":{\"attribute\":\"%d\"}}";
 	private static final int SLEEPTIME_VARIANCE = 750;
 	private static final int SLEEPTIME_BASE = 250;
 	private final AppInfo appInfo;
@@ -66,8 +68,8 @@ public class RefAppResource {
 	 * @return The reflected body.
 	 */
 	@PUT
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.TEXT_PLAIN })
+	@Produces({ MediaType.TEXT_PLAIN })
 	@Path("/test")
 	public InputStream putData(final InputStream is) {
 		return is;
@@ -82,13 +84,15 @@ public class RefAppResource {
 	 */
 	@GET
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.TEXT_PLAIN })
 	@Path("/test")
-	public String getData(@HeaderParam("Accept") final String accept) {
-		if (accept.equals(MediaType.APPLICATION_JSON)) {
-			return JSONSTRING;
-		} else if (accept.equals(MediaType.APPLICATION_XML)) {
-			return XMLSTRING;
+	public String getData(@HeaderParam("Accept") final String accept, @QueryParam("Content") final String contentType) {
+		Strings.nullToEmpty(contentType);
+
+		if (contentType.equals(MediaType.APPLICATION_JSON)) {
+			return String.format(JSONSTRING, rng.nextInt(100000));
+		} else if (contentType.equals(MediaType.APPLICATION_XML)) {
+			return String.format(XMLSTRING, rng.nextInt(100000));
 		}
 
 		return "";
@@ -103,7 +107,7 @@ public class RefAppResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/test")
 	public Response postData() {
-		return Response.noContent().build();
+		return Response.ok().build();
 	}
 
 	/**
@@ -115,7 +119,7 @@ public class RefAppResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/test")
 	public Response deleteData() {
-		return Response.noContent().build();
+		return Response.ok().build();
 	}
 
 	/**
@@ -134,7 +138,7 @@ public class RefAppResource {
 			return Response.serverError().build();
 		}
 
-		return Response.noContent().build();
+		return Response.ok().build();
 	}
 
 	/**
@@ -145,7 +149,7 @@ public class RefAppResource {
 	 *            The amount of loops the calculation should run.
 	 * @return The "Terminated" string after successfully executing the loop.
 	 */
-	@POST
+	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/cpuload/{loops}")
 	public String generateCPULoad(@PathParam("loops") final int loops) {
@@ -167,7 +171,7 @@ public class RefAppResource {
 	 * @throws WebApplicationException
 	 *             If the generation triggered an {@link OutOfMemoryError}.
 	 */
-	@POST
+	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/garbage/{amount}")
 	public String generateGarbage(@PathParam("amount") final int amount) {
