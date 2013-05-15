@@ -21,10 +21,26 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 
 import com.google.inject.servlet.GuiceFilter;
 
+/**
+ * This class starts an embedded Jetty server on a (given) port for local testing purposes. The
+ * servers functionality is provided by attaching a GuiceServletContextListener.
+ * 
+ * @author jsievers
+ */
 public class DemoServer {
+	/** The port on which the server is hosted. */
 	private static int PORT = 8080;
 
+	/**
+	 * Starts the embedded Jetty server.
+	 * 
+	 * @param args
+	 *            With -port XX you can specify the port on which the server is running.
+	 * @throws Exception
+	 *             Throws an exception if the Jetty server fails to start.
+	 */
 	public static void main(final String[] args) throws Exception {
+		// Parse the args and check for a given -port XX
 		int i = 0;
 		while (i < args.length && args[i].startsWith("-")) {
 			String arg = args[i++];
@@ -33,20 +49,20 @@ public class DemoServer {
 				if (i < args.length) {
 					PORT = Integer.parseInt(args[i++]);
 				} else {
-					System.out.println("-port requires an integer port (standard port is 8080)");
+					System.out.println("-port requires an integer (standard port is 8080)");
 				}
 			}
 		}
 
+		// Create a new server and set the servlet context
 		Server server = new Server(PORT);
-
 		ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
-		// Add our Guice listener that includes our bindings
+		// Add the Guice listener that includes all bindings
 		handler.addEventListener(new RefAppContextListener());
 		//handler.setMaxFormContentSize(500);
 
-		// Then add GuiceFilter and configure the server to 
+		// Then add the GuiceFilter and configure the server to 
 		// reroute all requests through this filter. 
 		handler.addFilter(GuiceFilter.class, "/*", null);
 
@@ -57,6 +73,7 @@ public class DemoServer {
 
 		server.setHandler(handler);
 
+		// Start the server. Exceptions and not handled here.
 		server.start();
 		server.join();
 	}

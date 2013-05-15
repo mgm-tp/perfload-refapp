@@ -16,6 +16,8 @@
 package com.mgmtp.perfload.refapp.resources;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -29,7 +31,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -44,10 +45,17 @@ import com.mgmtp.perfload.refapp.model.AppInfo;
 @Path("rest")
 public class RefAppResource {
 
+	/** Test XML string */
 	private static final String XMLSTRING = "<element value=\"%d\"/>";
+	/** Test JSON string */
 	private static final String JSONSTRING = "{\"element\":{\"attribute\":\"%d\"}}";
+	/** Variance of sleep time of /time request */
 	private static final int SLEEPTIME_VARIANCE = 750;
+	/** Base sleep time of /time request */
 	private static final int SLEEPTIME_BASE = 250;
+	/** Synchronized list for persistently storing garbage. */
+	private static final List<Object> persistentGarbage = new ArrayList<Object>();
+
 	private final AppInfo appInfo;
 	private final Random rng = new Random();
 
@@ -57,7 +65,7 @@ public class RefAppResource {
 	}
 
 	/**
-	 * Get basic infos for this application.
+	 * Get basic info about this application.
 	 * 
 	 * @return The object holding the data.
 	 */
@@ -93,15 +101,15 @@ public class RefAppResource {
 	 */
 	@GET
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.TEXT_PLAIN })
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/test")
-	public String getData(@HeaderParam("Accept") final String accept, @QueryParam("Content") final String contentType) {
-		Strings.nullToEmpty(contentType);
+	public String getData(@HeaderParam("Accept") final String accept) {
+		Strings.nullToEmpty(accept);
 
-		if (contentType.equals(MediaType.APPLICATION_JSON)) {
-			return String.format(JSONSTRING, rng.nextInt(100000));
-		} else if (contentType.equals(MediaType.APPLICATION_XML)) {
-			return String.format(XMLSTRING, rng.nextInt(100000));
+		if (accept.equals(MediaType.APPLICATION_JSON)) {
+			return String.format(JSONSTRING, rng.nextInt(10000));
+		} else if (accept.equals(MediaType.APPLICATION_XML)) {
+			return String.format(XMLSTRING, rng.nextInt(10000));
 		}
 
 		return "";
@@ -170,9 +178,8 @@ public class RefAppResource {
 	}
 
 	/**
-	 * Triggers the creation BufferedImages to temporarily generate garbage to start and test the
-	 * garbage collection of the server. The loop count can be adjusted by specifying a value in the
-	 * URI.
+	 * Triggers the creation Objects to temporarily generate garbage to start and test the garbage
+	 * collection of the server. The loop count can be adjusted by specifying a value in the URI.
 	 * 
 	 * @param amount
 	 *            The amount of loops the garbage generation should run.
@@ -188,8 +195,38 @@ public class RefAppResource {
 
 		try {
 			for (int i = 0; i < amount; i++) {
-				garbage[i] = new byte[1000];
+				garbage[i] = new byte[10];
 			}
+		} catch (OutOfMemoryError ex) {
+			throw new WebApplicationException(ex, Response.Status.INTERNAL_SERVER_ERROR);
+		}
+
+		return "Terminated";
+	}
+
+	/**
+	 * Triggers the creation Objects to generate persistent garbage. The objects will not be cleared
+	 * afterwards to simulate pollution of the servers RAM. The loop count can be adjusted by
+	 * specifying a value in the URI.
+	 * 
+	 * @param amount
+	 *            The amount of loops the garbage generation should run.
+	 * @return The "Terminated" string after successfully executing the loop.
+	 * @throws WebApplicationException
+	 *             If the generation triggered an {@link OutOfMemoryError}.
+	 */
+	@GET
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("/garbage_persistent/{amount}")
+	public String generatePersistentGarbage(@PathParam("amount") final int amount) {
+		Object[] garbage = new Object[amount];
+
+		try {
+			for (int i = 0; i < amount; i++) {
+				garbage[i] = new byte[10];
+			}
+
+			persistentGarbage.add(garbage);
 		} catch (OutOfMemoryError ex) {
 			throw new WebApplicationException(ex, Response.Status.INTERNAL_SERVER_ERROR);
 		}

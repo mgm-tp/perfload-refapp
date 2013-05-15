@@ -60,6 +60,11 @@ public class RefAppModule extends AbstractModule {
 		});
 	}
 
+	/**
+	 * Creates an instance of AppInfo used by dependency injection.
+	 * 
+	 * @return AppInfo with data from a resource file.
+	 */
 	@Provides
 	@Singleton
 	AppInfo provideAppInfo() throws IOException {
