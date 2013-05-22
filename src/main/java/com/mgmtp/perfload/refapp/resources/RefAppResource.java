@@ -191,7 +191,7 @@ public class RefAppResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/garbage/{amount}")
 	public String generateGarbage(@PathParam("amount") final int amount) {
-		Object[] garbage = new Object[amount];
+		Object[] garbage = new Object[amount / 10];
 
 		try {
 			for (int i = 0; i < amount; i++) {
@@ -219,7 +219,7 @@ public class RefAppResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/garbage_persistent/{amount}")
 	public String generatePersistentGarbage(@PathParam("amount") final int amount) {
-		Object[] garbage = new Object[amount];
+		Object[] garbage = new Object[amount / 100];
 
 		try {
 			for (int i = 0; i < amount; i++) {

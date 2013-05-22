@@ -38,6 +38,6 @@ JAVA_CMD="$JAVA_HOME/bin/java"
 
 [ -f logback.xml ] && JAVA_OPTS="$JAVA_OPTS -Dlogback.configurationFile=logback.xml"
 
-JAVA_OPTS="$JAVA_OPTS -Xmx256m -jar ./lib/perfload-ref-app-${project.version}.jar $@"
+JAVA_OPTS="$JAVA_OPTS -Xmx1024m -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:gclog.txt -jar ./lib/perfload-ref-app-${project.version}.jar $@"
 
 exec "$JAVA_CMD" $JAVA_OPTS

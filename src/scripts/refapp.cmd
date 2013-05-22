@@ -43,7 +43,7 @@ set JAVA_CMD="%JAVA_HOME%\bin\java"
 
 if exist logback.xml set JAVA_OPTS=%JAVA_OPTS% -Dlogback.configurationFile=logback.xml
 
-set JAVA_OPTS=%JAVA_OPTS% -Xmx256m -jar .\lib\perfload-ref-app-${project.version}.jar %*
+set JAVA_OPTS=%JAVA_OPTS% -Xmx1024m -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:gclog.txt -jar .\lib\perfload-ref-app-${project.version}.jar %*
 
 start "perfLoad RefApp %*" %JAVA_CMD% %JAVA_OPTS%
 
