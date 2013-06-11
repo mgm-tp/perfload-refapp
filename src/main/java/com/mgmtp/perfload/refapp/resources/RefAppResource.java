@@ -103,7 +103,7 @@ public class RefAppResource {
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/test")
-	public String getData(@HeaderParam("Accept") final String accept) {
+	public String getData(@HeaderParam("Content-Type") final String accept) {
 		Strings.nullToEmpty(accept);
 
 		if (accept.equals(MediaType.APPLICATION_JSON)) {
@@ -194,7 +194,7 @@ public class RefAppResource {
 		Object[] garbage = new Object[amount / 10];
 
 		try {
-			for (int i = 0; i < amount; i++) {
+			for (int i = 0; i < garbage.length; i++) {
 				garbage[i] = new byte[10];
 			}
 		} catch (OutOfMemoryError ex) {
@@ -219,11 +219,11 @@ public class RefAppResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/garbage_persistent/{amount}")
 	public String generatePersistentGarbage(@PathParam("amount") final int amount) {
-		Object[] garbage = new Object[amount / 100];
+		Object[] garbage = new Object[Math.max(amount / 100, 1)];
 
 		try {
-			for (int i = 0; i < amount; i++) {
-				garbage[i] = new byte[10];
+			for (int i = 0; i < garbage.length; i++) {
+				garbage[i] = new byte[15];
 			}
 
 			persistentGarbage.add(garbage);
