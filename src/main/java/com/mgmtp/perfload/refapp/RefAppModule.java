@@ -17,11 +17,15 @@ package com.mgmtp.perfload.refapp;
 
 import static org.apache.commons.io.IOUtils.closeQuietly;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
+import java.net.URL;
 import java.util.Properties;
 
 import javax.inject.Singleton;
+
+import org.apache.commons.io.FileUtils;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableMap;
@@ -29,6 +33,7 @@ import com.google.common.io.Resources;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.servlet.ServletModule;
+import com.mgmtp.perfload.refapp.annotations.RefAppDir;
 import com.mgmtp.perfload.refapp.model.AppInfo;
 import com.mgmtp.perfload.refapp.resources.RefAppResource;
 import com.sun.jersey.api.core.ResourceConfig;
@@ -77,5 +82,28 @@ public class RefAppModule extends AbstractModule {
 		} finally {
 			closeQuietly(reader);
 		}
+	}
+
+	@Provides
+	@Singleton
+	RefAppLogger provideAgentLogger(@RefAppDir final File agentDir) {
+		File agentLog = new File(agentDir, "perfload-refapp.log");
+		final RefAppLogger logger = new RefAppLogger(agentLog);
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				logger.close();
+			}
+		});
+		return logger;
+	}
+
+	@Provides
+	@RefAppDir
+	@Singleton
+	File provideAgentDir() {
+		URL location = getClass().getProtectionDomain().getCodeSource().getLocation();
+		File jarFile = FileUtils.toFile(location);
+		return jarFile.getParentFile().getParentFile();
 	}
 }

@@ -35,7 +35,10 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import com.google.common.base.Strings;
+import com.mgmtp.perfload.refapp.RefAppLogger;
 import com.mgmtp.perfload.refapp.model.AppInfo;
 
 /**
@@ -58,10 +61,14 @@ public class RefAppResource {
 
 	private final AppInfo appInfo;
 	private final Random rng = new Random();
+	private final RefAppLogger logger;
 
 	@Inject
-	public RefAppResource(final AppInfo appInfo) {
+	public RefAppResource(final AppInfo appInfo, final RefAppLogger logger) {
 		this.appInfo = appInfo;
+		this.logger = logger;
+
+		logger.writeln("RefApp initialized!");
 	}
 
 	/**
@@ -152,6 +159,7 @@ public class RefAppResource {
 		try {
 			Thread.sleep(rng.nextInt(SLEEPTIME_VARIANCE) + SLEEPTIME_BASE);
 		} catch (InterruptedException ex) {
+			logger.writeln(ExceptionUtils.getMessage(ex));
 			return Response.serverError().build();
 		}
 
@@ -198,6 +206,7 @@ public class RefAppResource {
 				garbage[i] = new byte[10];
 			}
 		} catch (OutOfMemoryError ex) {
+			logger.writeln(ExceptionUtils.getMessage(ex));
 			throw new WebApplicationException(ex, Response.Status.INTERNAL_SERVER_ERROR);
 		}
 
@@ -228,6 +237,7 @@ public class RefAppResource {
 
 			persistentGarbage.add(garbage);
 		} catch (OutOfMemoryError ex) {
+			logger.writeln(ExceptionUtils.getMessage(ex));
 			throw new WebApplicationException(ex, Response.Status.INTERNAL_SERVER_ERROR);
 		}
 
