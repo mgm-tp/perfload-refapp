@@ -1,5 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013 mgm technology partners GmbH
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+ <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.mgmtp.maven.poms</groupId>
@@ -14,7 +31,6 @@
 	<description>mgm perfLoad Reference Application</description>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -28,42 +44,10 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>8.1.9.v20130131</version>
 			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>com.mgmtp.perfload.refapp.DemoServer</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<descriptors>
-						<descriptor>src/main/assembly/jar.xml</descriptor>
-						<descriptor>src/main/assembly/zip.xml</descriptor>
-					</descriptors>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>perfload-logging</artifactId>
-			<version>4.6.0</version>
-		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-servlet</artifactId>
@@ -146,6 +130,105 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>dist</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>appassembler-maven-plugin</artifactId>
+						<version>1.4</version>
+						<configuration>
+							<repositoryLayout>flat</repositoryLayout>
+							<licenseHeaderFile>${project.build.directory}/maven-shared-archive-resources/META-INF/copyright_header</licenseHeaderFile>
+							<daemons>
+								<daemon>
+									<id>ref-app</id>
+									<mainClass>com.mgmtp.perfload.refapp.DemoServer</mainClass>
+									<platforms>
+										<platform>jsw</platform>
+									</platforms>
+									<generatorConfigurations>
+										<generatorConfiguration>
+											<generator>jsw</generator>
+											<includes>
+												<include>linux-x86-32</include>
+												<include>linux-x86-64</include>
+												<include>windows-x86-32</include>
+												<include>windows-x86-64</include>
+												<include>macosx-x86-universal-32</include>
+												<include>macosx-universal-32</include>
+												<include>macosx-universal-64</include>
+											</includes>
+										</generatorConfiguration>
+									</generatorConfigurations>
+									<commandLineArguments>
+										<commandLineArgument>-port 8080</commandLineArgument>
+									</commandLineArguments>
+									<jvmSettings>
+										<initialMemorySize>256M</initialMemorySize>
+										<maxMemorySize>256M</maxMemorySize>
+									</jvmSettings>
+								</daemon>
+							</daemons>
+						</configuration>
+						<executions>
+							<execution>
+								<id>generate-jsw-scripts</id>
+								<phase>package</phase>
+								<goals>
+									<goal>generate-daemons</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>2.4</version>
+						<executions>
+							<!-- <execution>
+								<id>jar-with-deps</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<configuration>
+									<archive>
+										<manifest>
+											<mainClass>com.mgmtp.perfload.refapp.DemoServer</mainClass>
+											<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+											<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+										</manifest>
+										<manifestEntries>
+											<Implementation-Date>${timestamp}</Implementation-Date>
+											<Implementation-Revision>${revision}</Implementation-Revision>
+										</manifestEntries>
+									</archive>
+									<descriptorRefs>
+										<descriptorRef>jar-with-dependencies</descriptorRef>
+									</descriptorRefs>
+								</configuration>
+							</execution> -->
+							<execution>
+								<id>dist</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor>src/main/assembly/dist.xml</descriptor>
+									</descriptors>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<properties>
 		<jettyVersion>7.2.0.v20101020</jettyVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -153,8 +236,5 @@
 		<guice.version>3.0</guice.version>
 		<jersey.version>1.17.1</jersey.version>
 		<slf4j.version>1.7.5</slf4j.version>
-		<agent.version>1.2.1-SNAPSHOT</agent.version>
 	</properties>
-
-
 </project>

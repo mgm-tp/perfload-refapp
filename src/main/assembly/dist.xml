@@ -17,12 +17,11 @@
 
 -->
 <assembly xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd" xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2">
-
 	<id>dist</id>
 	<formats>
 		<format>zip</format>
 	</formats>
-	<baseDirectory>refapp</baseDirectory>
+	<baseDirectory>ref-app</baseDirectory>
 	<fileSets>
 		<fileSet>
 			<directory>${project.build.directory}/maven-shared-archive-resources/META-INF</directory>
@@ -32,10 +31,36 @@
 				<include>NOTICE</include>
 			</includes>
 		</fileSet>
+		<fileSet>
+			<directory>${project.build.directory}/generated-resources/appassembler/jsw/ref-app</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>bin/**</include>
+				<include>conf/**</include>
+				<include>lib/**</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>${project.build.directory}/generated-resources/appassembler/jsw/ref-app</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>bin/**</include>
+			</includes>
+			<excludes>
+				<exclude>bin/*.bat</exclude>
+				<exclude>bin/*.exe</exclude>
+			</excludes>
+			<directoryMode>755</directoryMode>
+			<lineEnding>lf</lineEnding>
+		</fileSet>
+		<fileSet>
+			<directory>${project.build.directory}/generated-resources/appassembler/jsw/ref-app</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>bin/*.bat</include>
+				<include>bin/*.exe</include>
+			</includes>
+			<lineEnding>crlf</lineEnding>
+		</fileSet>
 	</fileSets>
-	<dependencySets>
-		<dependencySet>
-			<outputDirectory>lib</outputDirectory>
-		</dependencySet>
-	</dependencySets>
 </assembly>
