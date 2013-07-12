@@ -169,12 +169,12 @@
 									<jvmSettings>
 										<initialMemorySize>256M</initialMemorySize>
 										<maxMemorySize>256M</maxMemorySize>
+										<extraArguments>
+											<extraArgument>-XX:+PrintGCDetails</extraArgument>
+											<extraArgument>-XX:+PrintGCDateStamps</extraArgument>
+											<extraArgument>-Xloggc:gclog.txt</extraArgument>
+										</extraArguments>
 									</jvmSettings>
-									<extraArguments>
-										<extraArgument>-XX:+PrintGCDetails</extraArgument>
-										<extraArgument>-XX:+PrintGCDateStamps</extraArgument>
-										<extraArgument>-Xloggc:gclog.txt</extraArgument>
-									</extraArguments>
 								</daemon>
 							</daemons>
 						</configuration>
