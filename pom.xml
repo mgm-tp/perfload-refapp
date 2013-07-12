@@ -170,6 +170,7 @@
 										<initialMemorySize>256M</initialMemorySize>
 										<maxMemorySize>256M</maxMemorySize>
 										<extraArguments>
+											<extraArgument>-javaagent:../agent/perfload-agent.jar</extraArgument>
 											<extraArgument>-XX:+PrintGCDetails</extraArgument>
 											<extraArgument>-XX:+PrintGCDateStamps</extraArgument>
 											<extraArgument>-Xloggc:gclog.txt</extraArgument>
