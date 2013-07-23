@@ -50,7 +50,7 @@
 				<exclude>bin/*.bat</exclude>
 				<exclude>bin/*.exe</exclude>
 			</excludes>
-			<directoryMode>755</directoryMode>
+			<directoryMode>775</directoryMode>
 			<lineEnding>lf</lineEnding>
 		</fileSet>
 		<fileSet>
