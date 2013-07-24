@@ -28,8 +28,7 @@ import com.google.inject.servlet.GuiceFilter;
  * @author jsievers
  */
 public class DemoServer {
-	/** The port on which the server is hosted. */
-	private static int PORT = 8080;
+	private static final int DEFAULT_PORT = 8199;
 
 	/**
 	 * Starts the embedded Jetty server.
@@ -41,32 +40,32 @@ public class DemoServer {
 	 */
 	public static void main(final String[] args) throws Exception {
 		// Parse the args and check for a given -port XX
-		int i = 0;
-		while (i < args.length && args[i].startsWith("-")) {
-			String arg = args[i++];
+		int port = DEFAULT_PORT;
+		for (int i = 0; i < args.length && args[i].startsWith("-"); ++i) {
+			String arg = args[i];
 
 			if (arg.equals("-port")) {
 				if (i < args.length) {
-					PORT = Integer.parseInt(args[i++]);
+					port = Integer.parseInt(args[++i]);
 				} else {
-					System.out.println("-port requires an integer (standard port is 8080)");
+					System.out.println("-port requires an integer (default port is (" + DEFAULT_PORT + ")");
 				}
 			}
 		}
 
 		// Create a new server and set the servlet context
-		Server server = new Server(PORT);
+		Server server = new Server(port);
 		ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
 		// Add the Guice listener that includes all bindings
 		handler.addEventListener(new RefAppContextListener());
 		//handler.setMaxFormContentSize(500);
 
-		// Then add the GuiceFilter and configure the server to 
-		// reroute all requests through this filter. 
+		// Then add the GuiceFilter and configure the server to
+		// reroute all requests through this filter.
 		handler.addFilter(GuiceFilter.class, "/*", null);
 
-		// Must add DefaultServlet for embedded Jetty. 
+		// Must add DefaultServlet for embedded Jetty.
 		// Failing to do this will cause 404 errors.
 		// This is not needed if web.xml is used instead.
 		handler.addServlet(DefaultServlet.class, "/");

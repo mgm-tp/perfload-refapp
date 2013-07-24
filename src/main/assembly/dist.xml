@@ -35,32 +35,30 @@
 			<directory>${project.build.directory}/generated-resources/appassembler/jsw/ref-app</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
-				<include>bin/**</include>
 				<include>conf/**</include>
 				<include>lib/**</include>
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>${project.build.directory}/generated-resources/appassembler/jsw/ref-app</directory>
-			<outputDirectory>/</outputDirectory>
+			<directory>${project.build.directory}/generated-resources/appassembler/jsw/ref-app/bin</directory>
+			<outputDirectory>bin</outputDirectory>
 			<includes>
-				<include>bin/**</include>
+				<include>wrapper-*</include>
 			</includes>
-			<excludes>
-				<exclude>bin/*.bat</exclude>
-				<exclude>bin/*.exe</exclude>
-			</excludes>
-			<directoryMode>775</directoryMode>
-			<lineEnding>lf</lineEnding>
-		</fileSet>
-		<fileSet>
-			<directory>${project.build.directory}/generated-resources/appassembler/jsw/ref-app</directory>
-			<outputDirectory>/</outputDirectory>
-			<includes>
-				<include>bin/*.bat</include>
-				<include>bin/*.exe</include>
-			</includes>
-			<lineEnding>crlf</lineEnding>
+			<fileMode>775</fileMode>
 		</fileSet>
 	</fileSets>
+	<files>
+		<file>
+			<source>${project.build.directory}/generated-resources/appassembler/jsw/ref-app/bin/ref-app</source>
+			<outputDirectory>bin</outputDirectory>
+			<fileMode>775</fileMode>
+			<lineEnding>lf</lineEnding>
+		</file>
+		<file>
+			<source>${project.build.directory}/generated-resources/appassembler/jsw/ref-app/bin/ref-app.bat</source>
+			<outputDirectory>bin</outputDirectory>
+			<lineEnding>crlf</lineEnding>
+		</file>
+	</files>
 </assembly>

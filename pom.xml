@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>com.mgmtp.maven.poms</groupId>
 		<artifactId>mgm-oss-parent</artifactId>
-		<version>3</version>
+		<version>5</version>
 	</parent>
 	<groupId>com.mgmtp.perfload</groupId>
 	<artifactId>perfload-ref-app</artifactId>
@@ -163,9 +163,6 @@
 											</includes>
 										</generatorConfiguration>
 									</generatorConfigurations>
-									<commandLineArguments>
-										<commandLineArgument>-port 8080</commandLineArgument>
-									</commandLineArguments>
 									<jvmSettings>
 										<initialMemorySize>256M</initialMemorySize>
 										<maxMemorySize>256M</maxMemorySize>
