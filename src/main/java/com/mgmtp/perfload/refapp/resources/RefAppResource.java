@@ -54,7 +54,7 @@ public class RefAppResource {
 	/** Base sleep time of /time request */
 	private static final int SLEEPTIME_BASE = 250;
 	/** Synchronized list for persistently storing garbage. */
-	private static final List<Object> persistentGarbage = new ArrayList<Object>();
+	private static final List<Object> persistentGarbage = new ArrayList<>();
 
 	private final AppInfo appInfo;
 	private final Random rng = new Random();
