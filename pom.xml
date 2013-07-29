@@ -141,7 +141,6 @@
 						<version>1.4</version>
 						<configuration>
 							<repositoryLayout>flat</repositoryLayout>
-							<licenseHeaderFile>${project.build.directory}/maven-shared-archive-resources/META-INF/copyright_header</licenseHeaderFile>
 							<daemons>
 								<daemon>
 									<id>ref-app</id>
@@ -152,6 +151,12 @@
 									<generatorConfigurations>
 										<generatorConfiguration>
 											<generator>jsw</generator>
+											<configuration>
+												<property>
+													<name>wrapper.java.command</name>
+													<value>%JAVA_HOME%/bin/java</value>
+												</property>
+											</configuration>
 											<includes>
 												<include>linux-x86-32</include>
 												<include>linux-x86-64</include>
