@@ -1,6 +1,6 @@
 # perfLoad Reference Application
 
-Reference application used in the perfLoad' demo setup.
+Reference application used in the perfLoad's demo setup.
 
 perfLoad is currently being open-sourced. Sources and documentation
 will be transferred to Github. We are hoping to finish this process
