@@ -30,4 +30,15 @@ public class ServerArgs {
 
 	@Parameter(names = "-maxThreads", description = "The maximum number of threads for Jetty's thread pool.")
 	int maxThreads;
+
+	@Parameter(names = "-maxIdleTime", description = "The maximum idle time.")
+	int maxIdleTime;
+
+	@Parameter(names = "-soLingerTime", description = "The soLingerTime.")
+	int soLingerTime;
+
+	@Parameter(
+			names = "-acceptQueueSize",
+			description = "The number of connection requests that can be queued up before the operating system starts to send rejections.")
+	int acceptQueueSize;
 }

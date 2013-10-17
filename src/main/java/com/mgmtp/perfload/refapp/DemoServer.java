@@ -15,7 +15,9 @@
  */
 package com.mgmtp.perfload.refapp;
 
+import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
@@ -48,7 +50,20 @@ public class DemoServer {
 			jCmd.parse(args);
 
 			// Create a new server and set the servlet context
-			Server server = new Server(serverArgs.port);
+			Server server = new Server();
+			SocketConnector connector = new SocketConnector();
+			connector.setPort(serverArgs.port);
+			if (serverArgs.maxIdleTime > 0) {
+				connector.setMaxIdleTime(serverArgs.maxIdleTime);
+			}
+			if (serverArgs.soLingerTime > 0) {
+				connector.setSoLingerTime(serverArgs.soLingerTime);
+			}
+			if (serverArgs.acceptQueueSize > 0) {
+				connector.setAcceptQueueSize(serverArgs.acceptQueueSize);
+			}
+			server.setConnectors(new Connector[] { connector });
+
 			ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
 			// Add the Guice listener that includes all bindings
