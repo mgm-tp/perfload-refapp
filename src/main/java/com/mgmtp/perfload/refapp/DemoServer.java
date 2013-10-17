@@ -31,8 +31,6 @@ import com.google.inject.servlet.GuiceFilter;
  * @author jsievers
  */
 public class DemoServer {
-	private static final int DEFAULT_PORT = 8199;
-
 	/**
 	 * Starts the embedded Jetty server.
 	 * 
