@@ -71,7 +71,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>14.0.1</version>
+			<version>15.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -126,12 +126,12 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.0.11</version>
+			<version>1.0.13</version>
 		</dependency>
 		<dependency>
 			<groupId>com.beust</groupId>
 			<artifactId>jcommander</artifactId>
-			<version>1.30</version>
+			<version>1.32</version>
 		</dependency>
 	</dependencies>
 
@@ -220,7 +220,7 @@
 	</profiles>
 
 	<properties>
-		<jettyVersion>7.2.0.v20101020</jettyVersion>
+		<jettyVersion>8.1.1.v20120215</jettyVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<guice.version>3.0</guice.version>
