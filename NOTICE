@@ -42,25 +42,28 @@ From: 'Google, Inc.' (http://www.google.com)
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 From: 'Mort Bay Consulting' (http://www.mortbay.com)
-  - Jetty :: Continuation (http://www.eclipse.org/jetty/jetty-continuation) org.eclipse.jetty:jetty-continuation:jar:7.2.0.v20101020
+  - Jetty :: Continuation (http://www.eclipse.org/jetty/jetty-continuation) org.eclipse.jetty:jetty-continuation:jar:8.1.1.v20120215
     License: Apache Software License - Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
     License: Eclipse Public License - Version 1.0  (http://www.eclipse.org/org/documents/epl-v10.php)
-  - Jetty :: Http Utility (http://www.eclipse.org/jetty/jetty-http) org.eclipse.jetty:jetty-http:jar:7.2.0.v20101020
+  - Jetty :: Http Utility (http://www.eclipse.org/jetty/jetty-http) org.eclipse.jetty:jetty-http:jar:8.1.1.v20120215
     License: Apache Software License - Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
     License: Eclipse Public License - Version 1.0  (http://www.eclipse.org/org/documents/epl-v10.php)
-  - Jetty :: IO Utility (http://www.eclipse.org/jetty/jetty-io) org.eclipse.jetty:jetty-io:jar:7.2.0.v20101020
+  - Jetty :: IO Utility (http://www.eclipse.org/jetty/jetty-io) org.eclipse.jetty:jetty-io:jar:8.1.1.v20120215
     License: Apache Software License - Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
     License: Eclipse Public License - Version 1.0  (http://www.eclipse.org/org/documents/epl-v10.php)
-  - Jetty :: Security (http://www.eclipse.org/jetty/jetty-security) org.eclipse.jetty:jetty-security:jar:7.2.0.v20101020
+  - Jetty :: Security (http://www.eclipse.org/jetty/jetty-security) org.eclipse.jetty:jetty-security:jar:8.1.1.v20120215
     License: Apache Software License - Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
     License: Eclipse Public License - Version 1.0  (http://www.eclipse.org/org/documents/epl-v10.php)
-  - Jetty :: Server Core (http://www.eclipse.org/jetty) org.eclipse.jetty:jetty-server:jar:7.2.0.v20101020
+  - Jetty :: Server Core (http://www.eclipse.org/jetty/jetty-server) org.eclipse.jetty:jetty-server:jar:8.1.1.v20120215
     License: Apache Software License - Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
     License: Eclipse Public License - Version 1.0  (http://www.eclipse.org/org/documents/epl-v10.php)
-  - Jetty :: Servlet Handling (http://www.eclipse.org/jetty/jetty-servlet) org.eclipse.jetty:jetty-servlet:jar:7.2.0.v20101020
+  - Jetty :: Servlet Handling (http://www.eclipse.org/jetty/jetty-servlet) org.eclipse.jetty:jetty-servlet:jar:8.1.1.v20120215
     License: Apache Software License - Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
     License: Eclipse Public License - Version 1.0  (http://www.eclipse.org/org/documents/epl-v10.php)
-  - Jetty :: Utilities (http://www.eclipse.org/jetty/jetty-util) org.eclipse.jetty:jetty-util:jar:7.2.0.v20101020
+  - Jetty :: Utilities (http://www.eclipse.org/jetty/jetty-util) org.eclipse.jetty:jetty-util:jar:8.1.1.v20120215
+    License: Apache Software License - Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
+    License: Eclipse Public License - Version 1.0  (http://www.eclipse.org/org/documents/epl-v10.php)
+  - Jetty Orbit :: Servlet API (http://www.eclipse.org/jetty/jetty-orbit/javax.servlet) org.eclipse.jetty.orbit:javax.servlet:orbit:3.0.0.v201112011016
     License: Apache Software License - Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
     License: Eclipse Public License - Version 1.0  (http://www.eclipse.org/org/documents/epl-v10.php)
 
