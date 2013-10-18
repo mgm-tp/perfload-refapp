@@ -17,7 +17,7 @@ package com.mgmtp.perfload.refapp;
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.bio.SocketConnector;
+import org.eclipse.jetty.server.nio.BlockingChannelConnector;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
@@ -49,9 +49,9 @@ public class DemoServer {
 			jCmd = new JCommander(serverArgs);
 			jCmd.parse(args);
 
-			// Create a new server and set the servlet context
 			Server server = new Server();
-			SocketConnector connector = new SocketConnector();
+
+			BlockingChannelConnector connector = new BlockingChannelConnector();
 			connector.setPort(serverArgs.port);
 			if (serverArgs.maxIdleTime > 0) {
 				connector.setMaxIdleTime(serverArgs.maxIdleTime);
@@ -64,11 +64,22 @@ public class DemoServer {
 			}
 			server.setConnectors(new Connector[] { connector });
 
+			QueuedThreadPool threadPool = new QueuedThreadPool();
+			if (serverArgs.acceptQueueSize > 0) {
+				threadPool.setMaxQueued(serverArgs.acceptQueueSize);
+			}
+			if (serverArgs.minThreads > 0) {
+				threadPool.setMinThreads(serverArgs.minThreads);
+			}
+			if (serverArgs.maxThreads > 0) {
+				threadPool.setMaxThreads(serverArgs.maxThreads);
+			}
+			server.setThreadPool(threadPool);
+
 			ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
 			// Add the Guice listener that includes all bindings
 			handler.addEventListener(new RefAppContextListener());
-			//handler.setMaxFormContentSize(500);
 
 			// Then add the GuiceFilter and configure the server to
 			// reroute all requests through this filter.
@@ -80,15 +91,6 @@ public class DemoServer {
 			handler.addServlet(DefaultServlet.class, "/");
 
 			server.setHandler(handler);
-
-			QueuedThreadPool threadPool = new QueuedThreadPool();
-			if (serverArgs.minThreads > 0) {
-				threadPool.setMinThreads(serverArgs.minThreads);
-			}
-			if (serverArgs.maxThreads > 0) {
-				threadPool.setMaxThreads(serverArgs.maxThreads);
-			}
-			server.setThreadPool(threadPool);
 
 			// Start the server. Exceptions and not handled here.
 			server.start();
