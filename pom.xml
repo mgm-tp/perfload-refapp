@@ -30,6 +30,43 @@
 	<name>mgm perfLoad Reference Application</name>
 	<description>mgm perfLoad Reference Application</description>
 
+	<url>https://github.com/mgm-tp/perfload-ref-app</url>
+
+	<issueManagement>
+		<system>Github Issue Tracker</system>
+		<url>https://github.com/mgm-tp/perfload/issues</url>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:git:git://github.com/mgm-tp/perfload-ref-app.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/mgm-tp/perfload-ref-app.git</developerConnection>
+		<url>https://github.com/mgm-tp/perfload-ref-app</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>unguiculus</id>
+			<name>Reinhard Nägele</name>
+		</developer>
+		<developer>
+			<id>jsievers</id>
+			<name>Julian Sievers</name>
+		</developer>
+	</developers>
+	
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+	
 	<build>
 		<resources>
 			<resource>
