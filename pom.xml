@@ -25,7 +25,7 @@
 	</parent>
 	<groupId>com.mgmtp.perfload</groupId>
 	<artifactId>perfload-ref-app</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>mgm perfLoad Reference Application</name>
 	<description>mgm perfLoad Reference Application</description>
@@ -41,7 +41,7 @@
 		<connection>scm:git:git://github.com/mgm-tp/perfload-ref-app.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/mgm-tp/perfload-ref-app.git</developerConnection>
 		<url>https://github.com/mgm-tp/perfload-ref-app</url>
-		<tag>HEAD</tag>
+		<tag>perfload-ref-app-1.0.0</tag>
 	</scm>
 
 	<licenses>
