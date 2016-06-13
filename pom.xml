@@ -23,8 +23,8 @@
 		<artifactId>mgm-oss-parent</artifactId>
 		<version>15</version>
 	</parent>
-	<groupId>com.mgmtp.perfload</groupId>
-	<artifactId>perfload-ref-app</artifactId>
+	<groupId>com.mgmtp.perfload.refapp</groupId>
+	<artifactId>perfload-refapp</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>mgm perfLoad Reference Application</name>
