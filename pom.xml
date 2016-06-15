@@ -203,7 +203,7 @@
 							<repositoryLayout>flat</repositoryLayout>
 							<daemons>
 								<daemon>
-									<id>ref-app</id>
+									<id>refapp</id>
 									<mainClass>com.mgmtp.perfload.refapp.DemoServer</mainClass>
 									<platforms>
 										<platform>jsw</platform>
