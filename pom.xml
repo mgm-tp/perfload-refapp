@@ -30,7 +30,7 @@
 	<name>mgm perfLoad Reference Application</name>
 	<description>mgm perfLoad Reference Application</description>
 
-	<url>https://github.com/mgm-tp/perfload-ref-app</url>
+	<url>https://github.com/mgm-tp/perfload-refapp</url>
 
 	<issueManagement>
 		<system>Github Issue Tracker</system>
@@ -38,9 +38,9 @@
 	</issueManagement>
 
 	<scm>
-		<connection>scm:git:git://github.com/mgm-tp/perfload-ref-app.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/mgm-tp/perfload-ref-app.git</developerConnection>
-		<url>https://github.com/mgm-tp/perfload-ref-app</url>
+		<connection>scm:git:git://github.com/mgm-tp/perfload-refapp.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/mgm-tp/perfload-refapp.git</developerConnection>
+		<url>https://github.com/mgm-tp/perfload-refapp</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -94,7 +94,7 @@
 				<configuration>
 					<deployProperties>
 						<bintray.repo>mgm-tp/mgm-oss-maven-repo</bintray.repo>
-						<bintray.package>perfload-ref-app</bintray.package>
+						<bintray.package>perfload-refapp</bintray.package>
 						<bintray.version>${project.version}</bintray.version>
 					</deployProperties>
 				</configuration>

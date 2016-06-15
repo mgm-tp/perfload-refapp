@@ -21,7 +21,7 @@
 	<formats>
 		<format>zip</format>
 	</formats>
-	<baseDirectory>ref-app</baseDirectory>
+	<baseDirectory>refapp</baseDirectory>
 	<fileSets>
 		<fileSet>
 			<directory>${project.build.directory}/maven-shared-archive-resources/META-INF</directory>
@@ -32,7 +32,7 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>${project.build.directory}/generated-resources/appassembler/jsw/ref-app</directory>
+			<directory>${project.build.directory}/generated-resources/appassembler/jsw/refapp</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
 				<include>conf/**</include>
@@ -40,7 +40,7 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>${project.build.directory}/generated-resources/appassembler/jsw/ref-app/bin</directory>
+			<directory>${project.build.directory}/generated-resources/appassembler/jsw/refapp/bin</directory>
 			<outputDirectory>bin</outputDirectory>
 			<includes>
 				<include>wrapper-*</include>
@@ -50,13 +50,13 @@
 	</fileSets>
 	<files>
 		<file>
-			<source>${project.build.directory}/generated-resources/appassembler/jsw/ref-app/bin/ref-app</source>
+			<source>${project.build.directory}/generated-resources/appassembler/jsw/refapp/bin/refapp</source>
 			<outputDirectory>bin</outputDirectory>
 			<fileMode>775</fileMode>
 			<lineEnding>lf</lineEnding>
 		</file>
 		<file>
-			<source>${project.build.directory}/generated-resources/appassembler/jsw/ref-app/bin/ref-app.bat</source>
+			<source>${project.build.directory}/generated-resources/appassembler/jsw/refapp/bin/refapp.bat</source>
 			<outputDirectory>bin</outputDirectory>
 			<lineEnding>crlf</lineEnding>
 		</file>
