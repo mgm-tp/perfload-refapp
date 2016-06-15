@@ -25,7 +25,7 @@
 	</parent>
 	<groupId>com.mgmtp.perfload.refapp</groupId>
 	<artifactId>perfload-refapp</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<packaging>jar</packaging>
 	<name>mgm perfLoad Reference Application</name>
 	<description>mgm perfLoad Reference Application</description>
