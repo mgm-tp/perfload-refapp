@@ -88,17 +88,6 @@
 					<additionalparam>-Xdoclint:none</additionalparam>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.jfrog.buildinfo</groupId>
-				<artifactId>artifactory-maven-plugin</artifactId>
-				<configuration>
-					<deployProperties>
-						<bintray.repo>mgm-tp/mgm-oss-maven-repo</bintray.repo>
-						<bintray.package>perfload-refapp</bintray.package>
-						<bintray.version>${project.version}</bintray.version>
-					</deployProperties>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
